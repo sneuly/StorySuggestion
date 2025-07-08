@@ -6,21 +6,22 @@ namespace StorySuggestion;
 
 public sealed class TemplateRenderer(ILookupProvider lookupProvider) : ITemplateRenderer
 {
-    // strategies that do NOT require lookup tables
-    private readonly IReadOnlyList<IPlaceholderStrategy> _nonLookupStrategies =
+    private static readonly IReadOnlyList<IPlaceholderStrategy> NonLookupStrategies =
     [
         new TextStrategy(),
         new PropertyStrategy(),
         new DateStrategy()
     ];
-
+    
     public string Render(Template template, JObject model)
     {
         var primary = ElectPrimaryDictionary(
             template,
             (lookupProvider as InMemoryLookupProvider)?.AllGroups
-                 ?? new Dictionary<string,
-                        Dictionary<string, Dictionary<string, string>>>());
+                ?? new Dictionary<string,
+                       Dictionary<string, Dictionary<string, string>>>());
+
+        var lookupStrategy = new LookupStrategy(primary, lookupProvider);
 
         var sb = new StringBuilder();
 
@@ -28,12 +29,12 @@ public sealed class TemplateRenderer(ILookupProvider lookupProvider) : ITemplate
         {
             if (seg.Kind == SegmentKind.Lookup)
             {
-                sb.Append(ResolveLookup(seg.Raw, model, primary));
+                sb.Append(lookupStrategy.Resolve(seg.Raw, model));
                 continue;
             }
 
-            var strategy = _nonLookupStrategies.First(s => s.CanHandle(seg.Kind));
-            sb.Append(strategy.Resolve(seg.Raw, model));
+            var strat = NonLookupStrategies.First(s => s.CanHandle(seg.Kind));
+            sb.Append(strat.Resolve(seg.Raw, model));
         }
 
         return sb.ToString();
@@ -44,44 +45,17 @@ public sealed class TemplateRenderer(ILookupProvider lookupProvider) : ITemplate
             Template template,
             Dictionary<string, Dictionary<string, Dictionary<string, string>>> groups)
     {
-        // collect selector names: “form1”, “readable”, etc.
         var selectors = template.Segments
                                 .Where(s => s.Kind == SegmentKind.Lookup)
                                 .Select(s => s.Raw.Split(':')[1])
                                 .ToHashSet(StringComparer.Ordinal);
 
-        // pick the dictionary that shares the most selectors with the template
         return groups.Values
                      .OrderByDescending(g => g.Keys.Count(selectors.Contains))
                      .FirstOrDefault()
-            ?? new Dictionary<string, Dictionary<string, string>>();
+               ?? new Dictionary<string, Dictionary<string, string>>();
     }
 
-    private string ResolveLookup(
-        string token,
-        JObject model,
-        Dictionary<string, Dictionary<string, string>> primary)
-    {
-        var parts    = token.Split(':', 2);
-        var left     = parts[0];
-        var selector = parts[1];
-
-        var key = model[left]?.ToString()
-                  ?? throw new InvalidOperationException($"Model lacks '{left}'");
-
-        // primary dictionary first
-        if (primary.TryGetValue(selector, out var dict) &&
-            dict.TryGetValue(key, out var value))
-            return value;
-
-        // fall back to any other dictionaries
-        if (lookupProvider.TryResolve(selector, key, out var fallback))
-            return fallback ?? string.Empty;
-
-        throw new InvalidOperationException(
-            $"No mapping found for selector '{selector}' and key '{key}'.");
-    }
-    
     private interface IPlaceholderStrategy
     {
         bool CanHandle(SegmentKind kind);
@@ -113,6 +87,32 @@ public sealed class TemplateRenderer(ILookupProvider lookupProvider) : ITemplate
 
             var dt = DateTime.ParseExact(raw, InputFormat, CultureInfo.InvariantCulture);
             return dt.Year.ToString();
+        }
+    }
+
+    private sealed class LookupStrategy(Dictionary<string, Dictionary<string, string>> primary,
+                                        ILookupProvider fallback) : IPlaceholderStrategy
+    {
+        public bool CanHandle(SegmentKind kind) => kind == SegmentKind.Lookup;
+
+        public string Resolve(string token, JObject model)
+        {
+            var parts    = token.Split(':', 2);
+            var left     = parts[0];
+            var selector = parts[1];
+
+            var key = model[left]?.ToString()
+                      ?? throw new InvalidOperationException($"Model lacks '{left}'");
+
+            if (primary.TryGetValue(selector, out var dict) &&
+                dict.TryGetValue(key, out var value))
+                return value;
+
+            if (fallback.TryResolve(selector, key, out var alt))
+                return alt!;
+
+            throw new InvalidOperationException(
+                $"No mapping found for selector '{selector}' and key '{key}'.");
         }
     }
 }
