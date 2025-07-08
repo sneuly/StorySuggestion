@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35514.174 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorySuggestion", "StorySuggestion\StorySuggestion.csproj", "{D315BB8C-6CEA-4FBE-9185-EB66700A14C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorySuggestionTests", "StorySuggestionTests\StorySuggestionTests.csproj", "{10D35C56-528C-4556-A356-FDF28433EDFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D315BB8C-6CEA-4FBE-9185-EB66700A14C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D315BB8C-6CEA-4FBE-9185-EB66700A14C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D315BB8C-6CEA-4FBE-9185-EB66700A14C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D315BB8C-6CEA-4FBE-9185-EB66700A14C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10D35C56-528C-4556-A356-FDF28433EDFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10D35C56-528C-4556-A356-FDF28433EDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10D35C56-528C-4556-A356-FDF28433EDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10D35C56-528C-4556-A356-FDF28433EDFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

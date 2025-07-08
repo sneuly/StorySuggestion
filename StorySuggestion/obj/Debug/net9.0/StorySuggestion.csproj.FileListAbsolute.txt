@@ -1,0 +1,17 @@
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\bin\Debug\net9.0\StorySuggestion.exe
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\bin\Debug\net9.0\StorySuggestion.deps.json
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\bin\Debug\net9.0\StorySuggestion.runtimeconfig.json
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\bin\Debug\net9.0\StorySuggestion.dll
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\bin\Debug\net9.0\StorySuggestion.pdb
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\obj\Debug\net9.0\StorySuggestion.csproj.AssemblyReference.cache
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\obj\Debug\net9.0\StorySuggestion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\obj\Debug\net9.0\StorySuggestion.AssemblyInfoInputs.cache
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\obj\Debug\net9.0\StorySuggestion.AssemblyInfo.cs
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\obj\Debug\net9.0\StorySuggestion.csproj.CoreCompileInputs.cache
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\obj\Debug\net9.0\StorySug.09D5478C.Up2Date
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\obj\Debug\net9.0\StorySuggestion.dll
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\obj\Debug\net9.0\refint\StorySuggestion.dll
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\obj\Debug\net9.0\StorySuggestion.pdb
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\obj\Debug\net9.0\StorySuggestion.genruntimeconfig.cache
+C:\Users\Sneuly\source\repos\StorySuggestion\StorySuggestion\obj\Debug\net9.0\ref\StorySuggestion.dll
